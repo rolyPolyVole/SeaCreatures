@@ -89,16 +89,13 @@ public class LakeSquid extends AbstractSeaCreature<Squid> implements Listener {
         Location squidLocation = creature.getLocation().add(0, 0.5, 0);
         Location targetLocation = target.getLocation().add(0, 0.5, 0);
 
-        Vector vectorBetween = targetLocation.toVector().subtract(squidLocation.toVector()).normalize();
-        int particles = (int) squidLocation.distance(targetLocation) * 2;
+        Vector directionVector = targetLocation.toVector().subtract(squidLocation.toVector()).normalize().multiply(0.5D);
+        int particleCount = (int) squidLocation.distance(targetLocation) * 2;
 
-        for (int i = 0; i < particles; i++) { // I admit this was GPT but I fully understand it
-            Location particleLocation = squidLocation.clone().add(
-                vectorBetween.clone().multiply(i / 2)
-            );
-
+        for (int i = 0; i < particleCount; i++) {
             World world = creature.getWorld();
-            world.spawnParticle(Particle.SQUID_INK, particleLocation, 1, 0, 0, 0);
+            squidLocation.add(directionVector);
+            world.spawnParticle(Particle.SQUID_INK, squidLocation, 1, 0, 0, 0);
         }
 
         if (target instanceof Player targetPlayer) {
