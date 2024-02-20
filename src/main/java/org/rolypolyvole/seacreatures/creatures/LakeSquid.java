@@ -53,14 +53,19 @@ public class LakeSquid extends AbstractSeaCreature<Squid> implements Listener {
         Location creatureLocation = creature.getLocation();
 
         List<Entity> filteredEntities = nearbyEntities.stream()
-            .filter(entity -> entity instanceof Player || entity instanceof Guardian)
-                .sorted((a, b) -> {
+            .filter(entity -> {
+                if (entity instanceof Player targetPlayer) {
+                    GameMode playerGameMode = targetPlayer.getGameMode();
+                    return playerGameMode == GameMode.SURVIVAL || playerGameMode == GameMode.ADVENTURE;
+                }
+
+                return entity instanceof Guardian;
+            }).sorted((a, b) -> {
                     double distanceToA = a.getLocation().distance(creatureLocation);
                     double distanceToB = b.getLocation().distance(creatureLocation);
 
                     return Double.compare(distanceToB, distanceToA);
-                })
-                .toList();
+            }).toList();
 
         if (!filteredEntities.isEmpty()) {
             target = (LivingEntity) filteredEntities.get(0);
