@@ -81,7 +81,7 @@ public class LakeSquid extends AbstractSeaCreature<Squid> implements Listener {
 
         for (int i = 0; i < particles; i++) { // I admit this was GPT but I fully understand it
             Location particleLocation = squidLocation.clone().add(
-                vectorBetween.clone().multiply((double) i / particles * squidLocation.distance(targetLocation))
+                vectorBetween.clone().multiply(i / 2)
             );
 
             World world = creature.getWorld();
