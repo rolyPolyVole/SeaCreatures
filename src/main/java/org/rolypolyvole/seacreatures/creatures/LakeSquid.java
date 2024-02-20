@@ -96,9 +96,12 @@ public class LakeSquid extends AbstractSeaCreature<Squid> implements Listener {
             world.spawnParticle(Particle.SQUID_INK, particleLocation, 1, 0, 0, 0);
         }
 
+        if (target instanceof Player targetPlayer) {
+            GameMode playerGamemode = targetPlayer.getGameMode();
 
-        if (target instanceof Player targetPlayer && targetPlayer.getGameMode() == GameMode.SURVIVAL) {
-            target.setHealth(Math.max(0.0, target.getHealth() - 1.0)); //Magic
+            if (playerGamemode == GameMode.SURVIVAL || playerGamemode == GameMode.ADVENTURE) {
+                target.setHealth(Math.max(0.0, target.getHealth() - 1.0)); //Magic
+            }
         }
 
         target.damage(6.0, creature); //Normal
