@@ -21,10 +21,11 @@ public class FishEvent implements Listener {
     } //"Pipe" principle by stephen
 
     @EventHandler
-    public void onFish(PlayerFishEvent event) {
+    public void onFish(@NotNull PlayerFishEvent event) {
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             if (random.nextDouble() < 0.01) {
                 //Drop luck potion
+                event.setCancelled(true);
                 return;
             }
 
@@ -48,6 +49,8 @@ public class FishEvent implements Listener {
                         .normalize()
                         .multiply(lakeSquid.getVelocityScalar())
                 );
+
+                event.setCancelled(true);
             }
         }
     }
