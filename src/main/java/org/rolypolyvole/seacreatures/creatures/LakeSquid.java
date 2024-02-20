@@ -10,17 +10,18 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import org.rolypolyvole.seacreatures.SeaCreatures;
+import org.rolypolyvole.seacreatures.SeaCreaturesPlugin;
 
 import java.util.List;
 import java.util.Random;
 
 public class LakeSquid extends AbstractSeaCreature<Squid> implements Listener {
+
     private LivingEntity target;
-    private final NamespacedKey key = new NamespacedKey(main, "creature"); //Future use, server restarts should not break mob AI
+
     private final Random random = new Random();
 
-    public LakeSquid(Location location, Player player, SeaCreatures main) {
+    public LakeSquid(Location location, Player player, SeaCreaturesPlugin main) {
         super(location, player, EntityType.SQUID, 20.0, main);
         target = player;
     }
