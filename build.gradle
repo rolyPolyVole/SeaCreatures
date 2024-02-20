@@ -45,7 +45,3 @@ processResources {
         expand props
     }
 }
-
-jar {
-    destinationDirectory.set(file("../../../TestServer/plugins"))
-}
