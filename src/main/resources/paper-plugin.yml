@@ -1,0 +1,4 @@
+name: SeaCreatures
+version: '${version}'
+main: org.rolypolyvole.seacreatures.SeaCreatures
+api-version: '1.20'
