@@ -181,7 +181,7 @@ public class LakeSquid extends AbstractSeaCreature<Squid> implements Listener {
                     idleTicks++;
                 }
 
-                if (ticksSinceLastApproach >= 10) {
+                if (ticksSinceLastApproach >= 10 && target != null) {
                     approachTarget();
                     ticksSinceLastApproach = 0;
                 } else {
