@@ -28,6 +28,7 @@ public class LakeSquid extends AbstractSeaCreature<Squid> implements Listener {
 
     @Override
     public void startTasks() {
+        applyBuffs();
         new TickManager().runTaskTimer(main, 0L, 1L);
     }
 
@@ -121,12 +122,14 @@ public class LakeSquid extends AbstractSeaCreature<Squid> implements Listener {
     }
 
     private class TickManager extends BukkitRunnable {
+
         private int regenTicks = 0;
         private int idleTicks = 80;
         private int ticksSinceLastApproach = 0;
         private int ticksSinceLastAttack = 0;
         private int totalAttacks = 0;
         private boolean ready = false;
+
         @Override
         public void run() {
             if (!creature.isValid()) {
