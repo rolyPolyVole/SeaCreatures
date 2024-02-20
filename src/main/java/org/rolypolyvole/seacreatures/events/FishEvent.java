@@ -1,21 +1,24 @@
 package org.rolypolyvole.seacreatures.events;
 
-import org.bukkit.entity.FishHook;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Squid;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.rolypolyvole.seacreatures.SeaCreaturesPlugin;
+import org.rolypolyvole.seacreatures.creatures.AbstractSeaCreature;
+import org.rolypolyvole.seacreatures.creatures.Creature;
 import org.rolypolyvole.seacreatures.creatures.LakeSquid;
+import org.rolypolyvole.seacreatures.creatures.PufferfishStack;
+import org.rolypolyvole.seacreatures.util.CreatureUtil;
 
 import java.util.Random;
 
 public class FishEvent implements Listener {
     private final SeaCreaturesPlugin main;
     private final Random random = new Random();
+
     public FishEvent(SeaCreaturesPlugin main) {
         this.main = main;
     } //"Pipe" principle by stephen
@@ -33,21 +36,30 @@ public class FishEvent implements Listener {
                 Player player = event.getPlayer();
                 FishHook hook = event.getHook();
 
-                LakeSquid lakeSquid = new LakeSquid(hook.getLocation(), player, main);
-                Squid squidEntity = lakeSquid.getEntity();
-                lakeSquid.applyBuffs();
-                lakeSquid.startTasks();
+                Creature creature = CreatureUtil.selectSeaCreature();
+
+                AbstractSeaCreature<? extends LivingEntity> seaCreature;
+
+                if (creature == Creature.LAKE_SQUID) {
+                    seaCreature = new LakeSquid(hook.getLocation(), player, main);
+                } else {
+                    seaCreature = new PufferfishStack(hook.getLocation(), player, main);
+                }
+
+                seaCreature.startTasks();
+
+                LivingEntity seaCreatureEntity = seaCreature.getEntity();
 
                 Vector velocity = new Vector(
-                    player.getX() - squidEntity.getX(),
-                    player.getY() - squidEntity.getY(),
-                    player.getZ() - squidEntity.getZ()
+                    player.getX() - seaCreatureEntity.getX(),
+                    player.getY() - seaCreatureEntity.getY(),
+                    player.getZ() - seaCreatureEntity.getZ()
                 );
 
-                squidEntity.setVelocity(
+                seaCreatureEntity.setVelocity(
                     velocity
                         .normalize()
-                        .multiply(lakeSquid.getVelocityScalar())
+                        .multiply(seaCreature.getVelocityScalar())
                 );
 
                 event.setCancelled(true);
