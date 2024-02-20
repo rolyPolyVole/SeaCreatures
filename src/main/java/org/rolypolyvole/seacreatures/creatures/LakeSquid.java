@@ -1,7 +1,7 @@
 package org.rolypolyvole.seacreatures.creatures;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.entity.*;
@@ -88,7 +88,11 @@ public class LakeSquid extends AbstractSeaCreature<Squid> implements Listener {
             world.spawnParticle(Particle.SQUID_INK, particleLocation, 1, 0, 0, 0);
         }
 
-        target.setHealth(Math.max(0.0, target.getHealth() - 1.0)); //Magic
+
+        if (target instanceof Player targetPlayer && targetPlayer.getGameMode() == GameMode.SURVIVAL) {
+            target.setHealth(Math.max(0.0, target.getHealth() - 1.0)); //Magic
+        }
+
         target.damage(6.0, creature); //Normal
 
         PotionEffect effect = new PotionEffect(PotionEffectType.BLINDNESS, 60, 0, false, false);
