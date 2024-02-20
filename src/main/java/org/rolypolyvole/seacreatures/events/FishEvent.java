@@ -7,15 +7,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.util.Vector;
-import org.rolypolyvole.seacreatures.SeaCreatures;
+import org.jetbrains.annotations.NotNull;
+import org.rolypolyvole.seacreatures.SeaCreaturesPlugin;
 import org.rolypolyvole.seacreatures.creatures.LakeSquid;
 
 import java.util.Random;
 
 public class FishEvent implements Listener {
-    private final SeaCreatures main;
+    private final SeaCreaturesPlugin main;
     private final Random random = new Random();
-    public FishEvent(SeaCreatures main) {
+    public FishEvent(SeaCreaturesPlugin main) {
         this.main = main;
     } //"Pipe" principle by stephen
 

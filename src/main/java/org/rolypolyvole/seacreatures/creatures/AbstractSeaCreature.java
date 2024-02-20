@@ -6,17 +6,17 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.rolypolyvole.seacreatures.SeaCreatures;
+import org.rolypolyvole.seacreatures.SeaCreaturesPlugin;
 
 import java.util.Objects;
 
 public abstract class AbstractSeaCreature<E extends LivingEntity> {
 
-    protected final SeaCreatures main;
+    protected final SeaCreaturesPlugin main;
     protected final E creature;
     public final Player player;
 
-    public AbstractSeaCreature(@NotNull Location location, Player player, EntityType type, double health, SeaCreatures main) {
+    public AbstractSeaCreature(@NotNull Location location, Player player, EntityType type, double health, SeaCreaturesPlugin main) {
         this.player = player;
         this.main = main;
         this.creature = (E) location.getWorld().spawnEntity(location, type);
